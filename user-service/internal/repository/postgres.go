@@ -15,7 +15,6 @@ type UserRepository struct {
 
 func NewPostgresRepository() *UserRepository {
 	connStr := "host=localhost port=5432 user=user_admin password=my_secret_password dbname=music_app_db sslmode=disable"
-	
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatalf("Error opening database: %v", err)
@@ -26,8 +25,6 @@ func NewPostgresRepository() *UserRepository {
 		log.Fatalf("Database is unreachable: %v", err)
 	}
 
-	fmt.Println("Successfully connected to PostgreSQL!")
-
 	query := `
 	CREATE TABLE IF NOT EXISTS users (
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -36,7 +33,6 @@ func NewPostgresRepository() *UserRepository {
 		password TEXT NOT NULL,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);`
-	
 	_, err = db.Exec(query)
 	if err != nil {
 		log.Fatalf("Failed to create table: %v", err)
@@ -47,12 +43,10 @@ func NewPostgresRepository() *UserRepository {
 
 func (r *UserRepository) CreateUser(user *models.User) (string, error) {
 	query := `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id`
-	
 	var id string
 	err := r.db.QueryRow(query, user.Username, user.Email, user.Password).Scan(&id)
 	if err != nil {
 		return "", err
 	}
-
 	return id, nil
 }

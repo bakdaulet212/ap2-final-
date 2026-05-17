@@ -20,7 +20,6 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-
 	userHandler := handler.NewUserHandler(repo)
 	userpb.RegisterUserServiceServer(s, userHandler)
 
