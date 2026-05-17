@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package catalog;
+option go_package = "./catalogpb";
+
+service CatalogService {
+  rpc AddTrack(AddTrackRequest) returns (AddTrackResponse);
+  rpc GetTrack(GetTrackRequest) returns (GetTrackResponse);
+  rpc ListTracks(ListTracksRequest) returns (ListTracksResponse);
+  rpc DeleteTrack(DeleteTrackRequest) returns (DeleteTrackResponse);
+}
+
+message Track {
+  string id = 1;
+  string title = 2;
+  string artist = 3;
+  string duration = 4;
+}
+
+message AddTrackRequest {
+  string title = 1;
+  string artist = 2;
+  string duration = 3;
+}
+
+message AddTrackResponse {
+  Track track = 1;
+}
+
+message GetTrackRequest {
+  string track_id = 1;
+}
+
+message GetTrackResponse {
+  Track track = 1;
+}
+
+message ListTracksRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message ListTracksResponse {
+  repeated Track tracks = 1;
+}
+
+message DeleteTrackRequest {
+  string track_id = 1;
+}
+
+message DeleteTrackResponse {
+  bool success = 1;
+}

@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package playlist;
+option go_package = "./playlistpb";
+
+service PlaylistService {
+  rpc CreatePlaylist(CreatePlaylistRequest) returns (CreatePlaylistResponse);
+  rpc GetPlaylist(GetPlaylistRequest) returns (GetPlaylistResponse);
+  rpc AddTrackToPlaylist(AddTrackToPlaylistRequest) returns (AddTrackToPlaylistResponse);
+  rpc RemoveTrackFromPlaylist(RemoveTrackFromPlaylistRequest) returns (RemoveTrackFromPlaylistResponse);
+}
+
+message Playlist {
+  string id = 1;
+  string name = 2;
+  string user_id = 3;
+  repeated string track_ids = 4;
+}
+
+message CreatePlaylistRequest {
+  string name = 1;
+  string user_id = 2;
+}
+
+message CreatePlaylistResponse {
+  Playlist playlist = 1;
+}
+
+message GetPlaylistRequest {
+  string playlist_id = 1;
+}
+
+message GetPlaylistResponse {
+  Playlist playlist = 1;
+}
+
+message AddTrackToPlaylistRequest {
+  string playlist_id = 1;
+  string track_id = 2;
+}
+
+message AddTrackToPlaylistResponse {
+  bool success = 1;
+}
+
+message RemoveTrackFromPlaylistRequest {
+  string playlist_id = 1;
+  string track_id = 2;
+}
+
+message RemoveTrackFromPlaylistResponse {
+  bool success = 1;
+}
