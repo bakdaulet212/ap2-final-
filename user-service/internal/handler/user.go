@@ -35,7 +35,6 @@ func (h *UserHandler) Register(ctx context.Context, req *userpb.RegisterRequest)
 	}
 
 	return &userpb.RegisterResponse{
-		UserId:  id,
-		Message: "User registered successfully!",
+		UserId: id,
 	}, nil
 }

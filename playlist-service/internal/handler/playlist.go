@@ -19,14 +19,13 @@ func NewPlaylistHandler(repo *repository.PlaylistRepository) *PlaylistHandler {
 }
 
 func (h *PlaylistHandler) CreatePlaylist(ctx context.Context, req *playlistpb.CreatePlaylistRequest) (*playlistpb.CreatePlaylistResponse, error) {
-	if req.GetTitle() == "" || req.GetUserId() == "" {
-		return nil, errors.New("title and user_id are required")
+	if req.GetName() == "" || req.GetUserId() == "" {
+		return nil, errors.New("name and user_id are required")
 	}
 
 	playlist := &models.Playlist{
-		Title:    req.GetTitle(),
-		UserID:   req.GetUserId(),
-		TrackIDs: req.GetTrackIds(),
+		Title:  req.GetName(),
+		UserID: req.GetUserId(),
 	}
 
 	id, err := h.repo.CreatePlaylist(playlist)
@@ -35,7 +34,8 @@ func (h *PlaylistHandler) CreatePlaylist(ctx context.Context, req *playlistpb.Cr
 	}
 
 	return &playlistpb.CreatePlaylistResponse{
-		PlaylistId: id,
-		Message:    "Playlist created successfully with tracks!",
+		Playlist: &playlistpb.Playlist{
+			Id: id,
+		},
 	}, nil
 }
