@@ -24,7 +24,7 @@ const (
 type Playlist struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	TrackIds      []string               `protobuf:"bytes,4,rep,name=track_ids,json=trackIds,proto3" json:"track_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -68,9 +68,9 @@ func (x *Playlist) GetId() string {
 	return ""
 }
 
-func (x *Playlist) GetName() string {
+func (x *Playlist) GetTitle() string {
 	if x != nil {
-		return x.Name
+		return x.Title
 	}
 	return ""
 }
@@ -91,8 +91,9 @@ func (x *Playlist) GetTrackIds() []string {
 
 type CreatePlaylistRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	TrackIds      []string               `protobuf:"bytes,3,rep,name=track_ids,json=trackIds,proto3" json:"track_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -127,9 +128,9 @@ func (*CreatePlaylistRequest) Descriptor() ([]byte, []int) {
 	return file_playlist_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreatePlaylistRequest) GetName() string {
+func (x *CreatePlaylistRequest) GetTitle() string {
 	if x != nil {
-		return x.Name
+		return x.Title
 	}
 	return ""
 }
@@ -141,9 +142,17 @@ func (x *CreatePlaylistRequest) GetUserId() string {
 	return ""
 }
 
+func (x *CreatePlaylistRequest) GetTrackIds() []string {
+	if x != nil {
+		return x.TrackIds
+	}
+	return nil
+}
+
 type CreatePlaylistResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Playlist      *Playlist              `protobuf:"bytes,1,opt,name=playlist,proto3" json:"playlist,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -183,6 +192,13 @@ func (x *CreatePlaylistResponse) GetPlaylist() *Playlist {
 		return x.Playlist
 	}
 	return nil
+}
+
+func (x *CreatePlaylistResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
 }
 
 type GetPlaylistRequest struct {
@@ -328,6 +344,7 @@ func (x *AddTrackToPlaylistRequest) GetTrackId() string {
 type AddTrackToPlaylistResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -367,6 +384,13 @@ func (x *AddTrackToPlaylistResponse) GetSuccess() bool {
 		return x.Success
 	}
 	return false
+}
+
+func (x *AddTrackToPlaylistResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
 }
 
 type RemoveTrackFromPlaylistRequest struct {
@@ -424,6 +448,7 @@ func (x *RemoveTrackFromPlaylistRequest) GetTrackId() string {
 type RemoveTrackFromPlaylistResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -465,21 +490,30 @@ func (x *RemoveTrackFromPlaylistResponse) GetSuccess() bool {
 	return false
 }
 
+func (x *RemoveTrackFromPlaylistResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_playlist_proto protoreflect.FileDescriptor
 
 const file_playlist_proto_rawDesc = "" +
 	"\n" +
-	"\x0eplaylist.proto\x12\bplaylist\"d\n" +
+	"\x0eplaylist.proto\x12\bplaylist\"f\n" +
 	"\bPlaylist\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x17\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x12\x17\n" +
 	"\auser_id\x18\x03 \x01(\tR\x06userId\x12\x1b\n" +
-	"\ttrack_ids\x18\x04 \x03(\tR\btrackIds\"D\n" +
-	"\x15CreatePlaylistRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"H\n" +
+	"\ttrack_ids\x18\x04 \x03(\tR\btrackIds\"c\n" +
+	"\x15CreatePlaylistRequest\x12\x14\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1b\n" +
+	"\ttrack_ids\x18\x03 \x03(\tR\btrackIds\"b\n" +
 	"\x16CreatePlaylistResponse\x12.\n" +
-	"\bplaylist\x18\x01 \x01(\v2\x12.playlist.PlaylistR\bplaylist\"5\n" +
+	"\bplaylist\x18\x01 \x01(\v2\x12.playlist.PlaylistR\bplaylist\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"5\n" +
 	"\x12GetPlaylistRequest\x12\x1f\n" +
 	"\vplaylist_id\x18\x01 \x01(\tR\n" +
 	"playlistId\"E\n" +
@@ -488,15 +522,17 @@ const file_playlist_proto_rawDesc = "" +
 	"\x19AddTrackToPlaylistRequest\x12\x1f\n" +
 	"\vplaylist_id\x18\x01 \x01(\tR\n" +
 	"playlistId\x12\x19\n" +
-	"\btrack_id\x18\x02 \x01(\tR\atrackId\"6\n" +
+	"\btrack_id\x18\x02 \x01(\tR\atrackId\"P\n" +
 	"\x1aAddTrackToPlaylistResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"\\\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\\\n" +
 	"\x1eRemoveTrackFromPlaylistRequest\x12\x1f\n" +
 	"\vplaylist_id\x18\x01 \x01(\tR\n" +
 	"playlistId\x12\x19\n" +
-	"\btrack_id\x18\x02 \x01(\tR\atrackId\";\n" +
+	"\btrack_id\x18\x02 \x01(\tR\atrackId\"U\n" +
 	"\x1fRemoveTrackFromPlaylistResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\x83\x03\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\x83\x03\n" +
 	"\x0fPlaylistService\x12S\n" +
 	"\x0eCreatePlaylist\x12\x1f.playlist.CreatePlaylistRequest\x1a .playlist.CreatePlaylistResponse\x12J\n" +
 	"\vGetPlaylist\x12\x1c.playlist.GetPlaylistRequest\x1a\x1d.playlist.GetPlaylistResponse\x12_\n" +

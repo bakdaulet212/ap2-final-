@@ -152,6 +152,7 @@ func (x *AddTrackRequest) GetDuration() string {
 type AddTrackResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Track         *Track                 `protobuf:"bytes,1,opt,name=track,proto3" json:"track,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -191,6 +192,13 @@ func (x *AddTrackResponse) GetTrack() *Track {
 		return x.Track
 	}
 	return nil
+}
+
+func (x *AddTrackResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
 }
 
 type GetTrackRequest struct {
@@ -336,6 +344,7 @@ func (x *ListTracksRequest) GetOffset() int32 {
 type ListTracksResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Tracks        []*Track               `protobuf:"bytes,1,rep,name=tracks,proto3" json:"tracks,omitempty"`
+	Total         int32                  `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -375,6 +384,13 @@ func (x *ListTracksResponse) GetTracks() []*Track {
 		return x.Tracks
 	}
 	return nil
+}
+
+func (x *ListTracksResponse) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
 }
 
 type DeleteTrackRequest struct {
@@ -424,6 +440,7 @@ func (x *DeleteTrackRequest) GetTrackId() string {
 type DeleteTrackResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -465,6 +482,13 @@ func (x *DeleteTrackResponse) GetSuccess() bool {
 	return false
 }
 
+func (x *DeleteTrackResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_catalog_proto protoreflect.FileDescriptor
 
 const file_catalog_proto_rawDesc = "" +
@@ -478,22 +502,25 @@ const file_catalog_proto_rawDesc = "" +
 	"\x0fAddTrackRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12\x16\n" +
 	"\x06artist\x18\x02 \x01(\tR\x06artist\x12\x1a\n" +
-	"\bduration\x18\x03 \x01(\tR\bduration\"8\n" +
+	"\bduration\x18\x03 \x01(\tR\bduration\"R\n" +
 	"\x10AddTrackResponse\x12$\n" +
-	"\x05track\x18\x01 \x01(\v2\x0e.catalog.TrackR\x05track\",\n" +
+	"\x05track\x18\x01 \x01(\v2\x0e.catalog.TrackR\x05track\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\",\n" +
 	"\x0fGetTrackRequest\x12\x19\n" +
 	"\btrack_id\x18\x01 \x01(\tR\atrackId\"8\n" +
 	"\x10GetTrackResponse\x12$\n" +
 	"\x05track\x18\x01 \x01(\v2\x0e.catalog.TrackR\x05track\"A\n" +
 	"\x11ListTracksRequest\x12\x14\n" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x02 \x01(\x05R\x06offset\"<\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\"R\n" +
 	"\x12ListTracksResponse\x12&\n" +
-	"\x06tracks\x18\x01 \x03(\v2\x0e.catalog.TrackR\x06tracks\"/\n" +
+	"\x06tracks\x18\x01 \x03(\v2\x0e.catalog.TrackR\x06tracks\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x05R\x05total\"/\n" +
 	"\x12DeleteTrackRequest\x12\x19\n" +
-	"\btrack_id\x18\x01 \x01(\tR\atrackId\"/\n" +
+	"\btrack_id\x18\x01 \x01(\tR\atrackId\"I\n" +
 	"\x13DeleteTrackResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xa3\x02\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\xa3\x02\n" +
 	"\x0eCatalogService\x12?\n" +
 	"\bAddTrack\x12\x18.catalog.AddTrackRequest\x1a\x19.catalog.AddTrackResponse\x12?\n" +
 	"\bGetTrack\x12\x18.catalog.GetTrackRequest\x1a\x19.catalog.GetTrackResponse\x12E\n" +

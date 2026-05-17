@@ -84,7 +84,7 @@ func (x *RegisterRequest) GetPassword() string {
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -126,9 +126,9 @@ func (x *RegisterResponse) GetUserId() string {
 	return ""
 }
 
-func (x *RegisterResponse) GetToken() string {
+func (x *RegisterResponse) GetMessage() string {
 	if x != nil {
-		return x.Token
+		return x.Message
 	}
 	return ""
 }
@@ -188,6 +188,8 @@ func (x *LoginRequest) GetPassword() string {
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -225,6 +227,20 @@ func (*LoginResponse) Descriptor() ([]byte, []int) {
 func (x *LoginResponse) GetToken() string {
 	if x != nil {
 		return x.Token
+	}
+	return ""
+}
+
+func (x *LoginResponse) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *LoginResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
 	}
 	return ""
 }
@@ -278,6 +294,7 @@ type GetProfileResponse struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -329,6 +346,13 @@ func (x *GetProfileResponse) GetUsername() string {
 func (x *GetProfileResponse) GetEmail() string {
 	if x != nil {
 		return x.Email
+	}
+	return ""
+}
+
+func (x *GetProfileResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
 	}
 	return ""
 }
@@ -388,6 +412,7 @@ func (x *UpdateProfileRequest) GetUsername() string {
 type UpdateProfileResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -429,6 +454,13 @@ func (x *UpdateProfileResponse) GetSuccess() bool {
 	return false
 }
 
+func (x *UpdateProfileResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_user_proto protoreflect.FileDescriptor
 
 const file_user_proto_rawDesc = "" +
@@ -438,26 +470,31 @@ const file_user_proto_rawDesc = "" +
 	"\x0fRegisterRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\"A\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"E\n" +
 	"\x10RegisterResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
-	"\x05token\x18\x02 \x01(\tR\x05token\"@\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"%\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"X\n" +
 	"\rLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\",\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\",\n" +
 	"\x11GetProfileRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"V\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"u\n" +
 	"\x12GetProfileResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\"K\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\tR\tcreatedAt\"K\n" +
 	"\x14UpdateProfileRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
-	"\busername\x18\x02 \x01(\tR\busername\"1\n" +
+	"\busername\x18\x02 \x01(\tR\busername\"K\n" +
 	"\x15UpdateProfileResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\x85\x02\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\x85\x02\n" +
 	"\vUserService\x129\n" +
 	"\bRegister\x12\x15.user.RegisterRequest\x1a\x16.user.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.user.LoginRequest\x1a\x13.user.LoginResponse\x12?\n" +

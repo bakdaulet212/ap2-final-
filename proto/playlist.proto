@@ -12,18 +12,20 @@ service PlaylistService {
 
 message Playlist {
   string id = 1;
-  string name = 2;
+  string title = 2;
   string user_id = 3;
   repeated string track_ids = 4;
 }
 
 message CreatePlaylistRequest {
-  string name = 1;
+  string title = 1;
   string user_id = 2;
+  repeated string track_ids = 3;
 }
 
 message CreatePlaylistResponse {
   Playlist playlist = 1;
+  string message = 2;
 }
 
 message GetPlaylistRequest {
@@ -41,6 +43,7 @@ message AddTrackToPlaylistRequest {
 
 message AddTrackToPlaylistResponse {
   bool success = 1;
+  string message = 2;
 }
 
 message RemoveTrackFromPlaylistRequest {
@@ -50,4 +53,5 @@ message RemoveTrackFromPlaylistRequest {
 
 message RemoveTrackFromPlaylistResponse {
   bool success = 1;
+  string message = 2;
 }

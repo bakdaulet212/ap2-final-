@@ -18,7 +18,7 @@ message RegisterRequest {
 
 message RegisterResponse {
   string user_id = 1;
-  string token = 2;
+  string message = 2;
 }
 
 message LoginRequest {
@@ -28,6 +28,8 @@ message LoginRequest {
 
 message LoginResponse {
   string token = 1;
+  string user_id = 2;
+  string message = 3;
 }
 
 message GetProfileRequest {
@@ -38,6 +40,7 @@ message GetProfileResponse {
   string id = 1;
   string username = 2;
   string email = 3;
+  string created_at = 4;
 }
 
 message UpdateProfileRequest {
@@ -47,4 +50,5 @@ message UpdateProfileRequest {
 
 message UpdateProfileResponse {
   bool success = 1;
+  string message = 2;
 }

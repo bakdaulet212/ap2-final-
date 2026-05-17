@@ -25,6 +25,7 @@ message AddTrackRequest {
 
 message AddTrackResponse {
   Track track = 1;
+  string message = 2;
 }
 
 message GetTrackRequest {
@@ -42,6 +43,7 @@ message ListTracksRequest {
 
 message ListTracksResponse {
   repeated Track tracks = 1;
+  int32 total = 2;
 }
 
 message DeleteTrackRequest {
@@ -50,4 +52,5 @@ message DeleteTrackRequest {
 
 message DeleteTrackResponse {
   bool success = 1;
+  string message = 2;
 }
